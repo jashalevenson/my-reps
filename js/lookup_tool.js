@@ -36,10 +36,10 @@ function addressSearch() {
 
     // configuration for showing representatives at different levels of government
 
-    var show_local   = false;
-    var show_county  = false;
-    var show_state   = false;
-    var show_federal = false;
+    var show_local   = true;
+    var show_county  = true;
+    var show_state   = true;
+    var show_federal = true;
 
     var results_level_set = [];
     // set levels from checkboxes
@@ -109,7 +109,7 @@ function addressSearch() {
             $.each(divisions, function(division_id, division){
                 if (DEBUG) console.log(division.name);
                 if (typeof division.officeIndices !== 'undefined'){
-                    
+
                     $.each(division.officeIndices, function(i, office){
                         var office_name = offices[office];
 
@@ -177,7 +177,7 @@ function addressSearch() {
             });
 
             var template = new EJS({'text': $('#tableGuts').html()});
-            
+
             if (show_federal) {
                 $('#federal-container').show();
                 $('#fed-nav').show();
@@ -196,7 +196,7 @@ function addressSearch() {
             } else {
                 $('#state-container').hide()
                 $('#state-nav').hide();
-            }                
+            }
 
             if (show_county) {
                 if (county_people.length == 0) {
@@ -215,9 +215,9 @@ function addressSearch() {
             } else {
                 $('#county-container').hide()
                 $('#county-nav').hide();
-            }  
+            }
 
-            if (show_local) {    
+            if (show_local) {
                 if (local_people.length == 0) {
                     $('#local-container').hide();
                     if (selected_local == '')
@@ -229,7 +229,7 @@ function addressSearch() {
                     $('#local-container').show();
                     $('#local-container-not-found').hide();
                 }
-                $('#local-results tbody').append(template.render({people: local_people}));   
+                $('#local-results tbody').append(template.render({people: local_people}));
             } else {
                 $('#local-container').hide()
                 $('#local-nav').hide();
@@ -286,7 +286,7 @@ function findMe() {
 };
 
 function setFoundDivisions(divisions){
-    
+
     // reset the labels
     $("#state-nav").hide();
     $("#county-nav").hide();
@@ -313,12 +313,12 @@ function setFoundDivisions(divisions){
 }
 
 function checkFederal(division_id, office_name) {
-    if( division_id == federal_pattern || 
+    if( division_id == federal_pattern ||
         cd_pattern.test(division_id) ||
         federal_offices.indexOf(office_name.name) >= 0)
         return true;
     else
-        return false; 
+        return false;
 }
 
 function checkState(division_id){
@@ -326,14 +326,14 @@ function checkState(division_id){
         sl_pattern.test(division_id))
         return true;
     else
-        return false; 
+        return false;
 }
 
 function checkCounty(division_id){
     if( county_pattern.test(division_id))
         return true;
     else
-        return false; 
+        return false;
 }
 
 function formatParty(party) {
